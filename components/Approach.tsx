@@ -2,62 +2,62 @@ import React from "react";
 import { AnimatePresence, motion } from "framer-motion";
 
 import { CanvasRevealEffect } from "./ui/CanvasRevealEffect";
+import Image from "next/image";
 
 const Approach = () => {
   return (
-    <section className="w-full py-20">
+    <section className="w-full py-10" id="founders">
       <h1 className="heading">
-        <span className="text-purple">Founders</span>
+        <span className="text-green">Founders</span>
       </h1>
       {/* remove bg-white dark:bg-black */}
       <div className="my-20 flex flex-col lg:flex-row items-center justify-center w-full gap-4">
-        {/* add des prop */}
         <Card
-          title="Planning & Strategy"
-          icon={<AceternityIcon order="Rohan" />}
-          des="We'll collaborate to map out your website's goals, target audience, 
-          and key functionalities. We'll discuss things like site structure, 
-          navigation, and content requirements."
-        >
-          <CanvasRevealEffect
-            animationSpeed={5.1}
-            // add these classed for the border rounded overflowing -> rounded-3xl overflow-hidden
-            containerClassName="bg-emerald-900 rounded-3xl overflow-hidden"
-          />
-        </Card>
-        <Card
-          title="Development & Progress Update"
-          icon={<AceternityIcon order="Yograj" />}
-          des="Once we agree on the plan, I cue my lofi playlist and dive into
-          coding. From initial sketches to polished code, I keep you updated
-          every step of the way."
+          title="Co-Founder & Head of Research"
+          icon={<AceternityIcon order="Rohan Mathur" />}
+          des="Rohan leads the research and development efforts in the field of physics at RYM Grenergy Solution. He is responsible for conducting advanced research, writing and publishing scientific papers, and meticulously documenting all findings. Rohan's expertise ensures that the company's technologies are based on solid scientific principles and cutting-edge research."
+          image="/founders/rohan.jpeg"
         >
           <CanvasRevealEffect
             animationSpeed={3}
-            // change bg-black to bg-pink-900
             containerClassName="bg-pink-900 rounded-3xl overflow-hidden"
             colors={[
-              // change the colors of the
               [255, 166, 158],
               [221, 255, 247],
             ]}
-            dotSize={2}
+            dotSize={1}
           />
-          {/* Radial gradient for the cute fade */}
-          {/* remove this one */}
-          {/* <div className="absolute inset-0 [mask-image:radial-gradient(400px_at_center,white,transparent)] bg-black/50 dark:bg-black/90" /> */}
         </Card>
         <Card
-          title="Development & Launch"
-          icon={<AceternityIcon order="Mohit" />}
-          des="This is where the magic happens! Based on the approved design, 
-          I'll translate everything into functional code, building your website
-          from the ground up."
+          title="CEO & Founder"
+          icon={<AceternityIcon order="Yograj Rundhanker" />}
+          des="As the CEO and founder, Yograj leads the overall strategic direction of RYM Grenergy Solution. He manages various projects, handles client relations, and supervises the technical aspects of the company's innovations. Yograj ensures that all projects align with the company's vision and goals, driving growth and sustainability in their clean energy solutions."
+          image="/founders/yograj.jpeg"
+        >
+          <CanvasRevealEffect
+            animationSpeed={3}
+            containerClassName="bg-emerald-900 rounded-3xl overflow-hidden"
+            colors={[
+              [255, 166, 158],
+              [221, 255, 247],
+            ]}
+            dotSize={1}
+          />
+        </Card>
+        <Card
+          title="Co-Founder & Management Head"
+          icon={<AceternityIcon order="Mohit Yaduwanshi" />}
+          des="Mohit oversees the human resources, media relations, and financial planning for RYM Grenergy Solution. He is in charge of recruiting and managing the team, handling public and media presence, and ensuring sound financial management and planning. Mohit's role is crucial in maintaining the operational efficiency and public image of the company."
+          image="/founders/mohit.jpeg"
         >
           <CanvasRevealEffect
             animationSpeed={3}
             containerClassName="bg-sky-600 rounded-3xl overflow-hidden"
-            colors={[[125, 211, 252]]}
+            colors={[
+              [255, 166, 158],
+              [221, 255, 247],
+            ]}
+            dotSize={1}
           />
         </Card>
       </div>
@@ -71,13 +71,14 @@ const Card = ({
   title,
   icon,
   children,
-  // add this one for the desc
   des,
+  image,
 }: {
   title: string;
   icon: React.ReactNode;
   children?: React.ReactNode;
   des: string;
+  image: string;
 }) => {
   const [hovered, setHovered] = React.useState(false);
   return (
@@ -86,7 +87,7 @@ const Card = ({
       onMouseLeave={() => setHovered(false)}
       // change h-[30rem] to h-[35rem], add rounded-3xl
       className="border border-black/[0.2] group/canvas-card flex items-center justify-center
-       dark:border-white/[0.2]  max-w-sm w-full mx-auto p-4 relative lg:h-[35rem] rounded-3xl "
+       dark:border-white/[0.2]  max-w-sm w-full mx-auto p-4 relative lg:h-[30rem] rounded-3xl "
       style={{
         //   add these two
         //   you can generate the color from here https://cssgradient.io/
@@ -96,10 +97,10 @@ const Card = ({
       }}
     >
       {/* change to h-10 w-10 , add opacity-30  */}
-      <Icon className="absolute h-10 w-10 -top-3 -left-3 dark:text-white text-black opacity-30" />
-      <Icon className="absolute h-10 w-10 -bottom-3 -left-3 dark:text-white text-black opacity-30" />
-      <Icon className="absolute h-10 w-10 -top-3 -right-3 dark:text-white text-black opacity-30" />
-      <Icon className="absolute h-10 w-10 -bottom-3 -right-3 dark:text-white text-black opacity-30" />
+      <Icon className="absolute h-10 w-10 -top-3 -left-3 dark:text-white text-black opacity-30 z-10" />
+      <Icon className="absolute h-10 w-10 -bottom-3 -left-3 dark:text-white text-black opacity-30 z-10" />
+      <Icon className="absolute h-10 w-10 -top-3 -right-3 dark:text-white text-black opacity-30 z-10" />
+      <Icon className="absolute h-10 w-10 -bottom-3 -right-3 dark:text-white text-black opacity-30 z-10" />
 
       <AnimatePresence>
         {hovered && (
@@ -113,12 +114,23 @@ const Card = ({
         )}
       </AnimatePresence>
 
-      <div className="relative z-20 px-10">
+      <div className="relative z-20 px-2  h-full w-full">
+        <Image
+          src={image}
+          width={1000}
+          height={1000}
+          alt="founder image"
+          className="absolute object-cover top-0 left-0 w-full h-[70%]
+            group-hover/canvas-card:hidden
+            transition duration-200 
+            rounded-lg
+          "
+        />
         <div
           // add this for making it center
           // absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%]
-          className="text-center group-hover/canvas-card:-translate-y-4 absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] 
-        group-hover/canvas-card:opacity-0 transition duration-200 min-w-40 mx-auto flex items-center justify-center"
+          className="text-center group-hover/canvas-card:-translate-y-4 absolute top-[85%] left-[50%] translate-x-[-50%] translate-y-[-50%] 
+        group-hover/canvas-card:opacity-0 transition duration-200 min-w-40 mx-auto flex items-center justify-center w-full"
         >
           {icon}
         </div>
@@ -132,7 +144,7 @@ const Card = ({
         </h2>
         {/* add this one for the description */}
         <p
-          className="text-sm opacity-0 group-hover/canvas-card:opacity-100
+          className="text-lg opacity-0 group-hover/canvas-card:opacity-100
          relative z-10 mt-4 group-hover/canvas-card:text-white text-center
          group-hover/canvas-card:-translate-y-2 transition duration-200"
           style={{ color: "#E4ECFF" }}
@@ -146,9 +158,9 @@ const Card = ({
 // add order prop for the Phase number change
 const AceternityIcon = ({ order }: { order: string }) => {
   return (
-    <div>
+    <div className="relative ">
       {/* this btn is from https://ui.aceternity.com/components/tailwindcss-buttons border magic */}
-      {/* change rounded-lg, text-purple px-5 py-2 */}
+      {/* change rounded-lg, text-green px-5 py-2 */}
       {/* remove focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-2 focus:ring-offset-slate-50 cuz we don't need to focus */}
       {/* remove text-sm font-medium h-12 , add font-bold text-2xl */}
       <button className="relative inline-flex overflow-hidden rounded-full p-[1px] ">

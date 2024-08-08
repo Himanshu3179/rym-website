@@ -1,81 +1,120 @@
+/* eslint-disable @next/next/no-img-element */
 "use client";
-
+import { BsCalendarDateFill } from "react-icons/bs";
+import { RiTeamFill } from "react-icons/ri";
+import React, { useState } from "react";
 import { FaLocationArrow } from "react-icons/fa6";
+import { Tilt } from "react-tilt";
+import { motion } from "framer-motion";
 
 import { projects } from "@/data";
-import { PinContainer } from "./ui/Pin";
+
+import Image from "next/image";
+import { IoSchoolSharp } from "react-icons/io5";
+import { AnimatedTooltipPreview } from "./AnimatedTooltip";
 
 const RecentProjects = () => {
+  const [visibleProjects, setVisibleProjects] = useState(3);
+
+  const loadMoreProjects = () => {
+    setVisibleProjects((prevVisibleProjects) => prevVisibleProjects + 3);
+  };
+
   return (
-    <div className="py-20">
+    <div className="py-20" id="projects">
       <h1 className="heading">
         A small selection of our{" "}
-        <span className="text-purple">recent projects</span>
+        <span className="text-green">recent projects</span>
       </h1>
-      <div className="flex flex-wrap items-center justify-center p-4 gap-16 mt-10">
-        {projects.map((item) => (
-          <div
-            className="lg:min-h-[32.5rem] h-[25rem] flex items-center justify-center sm:w-96 w-[80vw]"
-            key={item.id}
+      <div
+        className="mt-20
+        grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3 
+        justify-center w-full 
+      "
+      >
+        {projects.slice(0, visibleProjects).map((item, i) => (
+          <Tilt
+            options={{
+              max: 15,
+              scale: 1,
+              speed: 40,
+            }}
+            className="bg-tertiary p-5 rounded-2xl w-full bg-white/10 "
+            key={i}
           >
-            <PinContainer
-              title="/ui.aceternity.com"
-              href="https://twitter.com/mannupaaji"
-            >
-              <div className="relative flex items-center justify-center sm:w-96 w-[80vw] overflow-hidden h-[20vh] lg:h-[30vh] mb-10">
-                <div
-                  className="relative w-full h-full overflow-hidden lg:rounded-3xl"
-                  style={{ backgroundColor: "#13162D" }}
-                >
-                  <img src="/bg.png" alt="bgimg" />
-                </div>
-                <img
-                  src={item.img}
-                  alt="cover"
-                  className="z-10 absolute bottom-0"
+            <motion.div className="rounded-lg ">
+              <div className="relative h-52 w-full">
+                <Image
+                  src={"/project/project.jpg"}
+                  alt="project"
+                  layout="fill"
+                  objectFit="cover"
+                  className="rounded-2xl"
                 />
               </div>
-
-              <h1 className="font-bold lg:text-2xl md:text-xl text-base line-clamp-1">
-                {item.title}
-              </h1>
-
-              <p
-                className="lg:text-xl lg:font-normal font-light text-sm line-clamp-2"
-                style={{
-                  color: "#BEC1DD",
-                  margin: "1vh 0",
-                }}
-              >
-                {item.des}
+              <h3 className="text-xl font-bold mt-4">{item.title}</h3>
+              <p className="text-gray-400 mt-2 line-clamp-4">
+                {item.description}
               </p>
 
-              <div className="flex items-center justify-between mt-7 mb-3">
-                <div className="flex items-center">
-                  {item.iconLists.map((icon, index) => (
-                    <div
-                      key={index}
-                      className="border border-white/[.2] rounded-full bg-black lg:w-10 lg:h-10 w-8 h-8 flex justify-center items-center"
-                      style={{
-                        transform: `translateX(-${5 * index + 2}px)`,
-                      }}
-                    >
-                      <img src={icon} alt="icon5" className="p-2" />
-                    </div>
-                  ))}
-                </div>
-
-                <div className="flex justify-center items-center">
-                  <p className="flex lg:text-xl md:text-xs text-sm text-purple">
-                    Check Live Site
-                  </p>
-                  <FaLocationArrow className="ms-3" color="#CBACF9" />
-                </div>
+              <div className="flex items-center mt-4">
+                <IoSchoolSharp className="text-green" />
+                <p className="text-gray-400 ml-2">{item.context}</p>
               </div>
-            </PinContainer>
-          </div>
+
+              <div className="flex items-center mt-4">
+                <BsCalendarDateFill className="text-green" />
+                <p className="text-gray-400 ml-2">{item.date}</p>
+              </div>
+
+              <div className="flex items-center mt-4">
+                <FaLocationArrow className="text-green" />
+                <p className="text-gray-400 ml-2">{item.role}</p>
+              </div>
+
+              <div className="flex items-center mt-4">
+                <RiTeamFill className="text-green" />
+                {item.contributors.length > 0 ? (
+                  <p className="text-gray-400 ml-2">
+                    {item.contributors.join(", ")}
+                    <span>, Yograj</span>
+                  </p>
+                ) : (
+                  <p className="text-gray-400 ml-2">Yograj</p>
+                )}
+                {/* <AnimatedTooltipPreview contributors={item.contributors} /> */}
+              </div>
+            </motion.div>
+          </Tilt>
         ))}
       </div>
+      {visibleProjects < projects.length && (
+        <div className="flex justify-center mt-10 p-1">
+          <button
+            className="relative inline-flex overflow-hidden rounded-full p-[1px] "
+            onClick={loadMoreProjects}
+          >
+            <span
+              className="absolute inset-[-1000%] animate-[spin_2s_linear_infinite]
+         bg-[conic-gradient(from_90deg_at_50%_50%,#E2CBFF_0%,#393BB2_50%,#E2CBFF_100%)]"
+            />
+            <span
+              className="inline-flex h-full w-full cursor-pointer items-center 
+        justify-center rounded-full bg-slate-950 px-5 py-2 text-purple backdrop-blur-3xl font-bold text-xl"
+            >
+              Load More Projects
+              <svg
+                className="ml-2 h-5 w-5 animate-bounce"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+              >
+                <path d="M12 16l-6-6h12z" />
+              </svg>
+            </span>
+          </button>
+        </div>
+      )}
     </div>
   );
 };

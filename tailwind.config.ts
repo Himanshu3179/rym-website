@@ -26,6 +26,11 @@ const config = {
       },
     },
     extend: {
+      textShadow: {
+        sm: "0 1px 2px var(--tw-shadow-color)",
+        DEFAULT: "0 2px 4px var(--tw-shadow-color)",
+        lg: "0 8px 16px var(--tw-shadow-color)",
+      },
       colors: {
         black: {
           DEFAULT: "#000",
@@ -42,6 +47,7 @@ const config = {
           "100": "#E4ECFF",
         },
         purple: "#CBACF9",
+        green: "#00FFB0",
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
@@ -185,6 +191,16 @@ const config = {
           }),
         },
         { values: flattenColorPalette(theme("backgroundColor")), type: "color" }
+      );
+    },
+    function ({ matchUtilities, theme }: any) {
+      matchUtilities(
+        {
+          "text-shadow": (value: any) => ({
+            textShadow: value,
+          }),
+        },
+        { values: theme("textShadow") }
       );
     },
   ],
